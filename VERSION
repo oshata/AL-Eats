@@ -1,0 +1,11 @@
+AL Eats v2.0.0
+Build Date: $(date)
+Features:
+- Server-side data sync
+- Ashley/Luke person selection
+- Priority system with colors
+- Drag & drop reordering
+- Map integration
+- Export/Import functionality
+- Mobile responsive design
+- Real-time sync status
