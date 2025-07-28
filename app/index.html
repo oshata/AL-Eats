@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AL Eats</title>
+    <title>A + L Eats</title>
     <style>
         * {
             margin: 0;
@@ -141,6 +141,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             background: white;
+            user-select: none;
+        }
+
+        .priority-option:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
         }
 
         .priority-option.selected {
@@ -150,18 +156,18 @@
         }
 
         .priority-high.selected {
-            border-color: #ff6b6b;
-            background: #ff6b6b;
+            border-color: #ff6b6b !important;
+            background: #ff6b6b !important;
         }
 
         .priority-medium.selected {
-            border-color: #ffa500;
-            background: #ffa500;
+            border-color: #ffa500 !important;
+            background: #ffa500 !important;
         }
 
         .priority-low.selected {
-            border-color: #4ecdc4;
-            background: #4ecdc4;
+            border-color: #4ecdc4 !important;
+            background: #4ecdc4 !important;
         }
 
         .add-btn {
@@ -181,6 +187,12 @@
         .add-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .add-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .cancel-btn {
@@ -232,6 +244,82 @@
             background: #667eea;
             color: white;
             border-color: #667eea;
+        }
+
+        .filter-btn.multi-selected {
+            background: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+
+        .clear-filters {
+            background: #dc3545;
+            color: white;
+            border: 2px solid #dc3545;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .clear-filters:hover {
+            background: #c82333;
+        }
+
+        .meal-types-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        @media (min-width: 768px) {
+            .meal-types-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .meal-types-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .meal-type-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 8px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .meal-type-checkbox:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        .meal-type-checkbox.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .meal-type-checkbox input[type="checkbox"] {
+            margin: 0;
+            transform: scale(1.2);
+        }
+
+        .multiple-meal-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 5px;
         }
 
         .export-import-controls {
@@ -372,6 +460,191 @@
             color: #1976d2;
         }
 
+        .meal-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .meal-type-badge.breakfast {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .meal-type-badge.brunch {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .meal-type-badge.lunch {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .meal-type-badge.dinner {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .meal-type-badge.bar {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .meal-type-badge.late-night {
+            background: #d6d8db;
+            color: #1b1e21;
+        }
+
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .rating-badge.ashley-rating {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .rating-badge.luke-rating {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: #ffd700;
+            font-size: 1rem;
+        }
+
+        .visited-card {
+            opacity: 0.8;
+            border-left-color: #28a745 !important;
+        }
+
+        .archive-section {
+            padding: 30px;
+            background: #f0f8f0;
+            border-top: 2px solid #28a745;
+        }
+
+        .archive-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .archive-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #28a745;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .archive-toggle {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .archive-toggle:hover {
+            background: #218838;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .rating-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .rating-input label {
+            font-weight: 600;
+            min-width: 60px;
+        }
+
+        .star-input {
+            display: flex;
+            gap: 5px;
+        }
+
+        .star-input button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #ddd;
+            transition: color 0.2s ease;
+        }
+
+        .star-input button:hover,
+        .visit-history {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid #28a745;
+        }
+
+        .visit-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .visit-entry:last-child {
+            border-bottom: none;
+        }
+
+        .visit-date {
+            font-weight: 600;
+            color: #28a745;
+        }
+
+        .visit-ratings {
+            display: flex;
+            gap: 15px;
+        }
+
+        .visit-count-badge {
+            background: #28a745;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
         .restaurant-details {
             margin: 15px 0;
         }
@@ -435,8 +708,13 @@
             color: white;
         }
 
-        .delete-btn:hover {
-            background: #ff5252;
+        .unvisit-btn {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .unvisit-btn:hover {
+            background: #e0a800;
         }
 
         .empty-state {
@@ -504,7 +782,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🍽️ AL Eats</h1>
+            <h1>🍽️ A + L Eats</h1>
             <p>Discover and track amazing places to dine together</p>
         </div>
 
@@ -535,7 +813,7 @@
                     
                     <div class="form-group">
                         <label for="url">Website/Menu URL</label>
-                        <input type="url" id="url" placeholder="https://restaurant-website.com">
+                        <input type="text" id="url" placeholder="restaurant.com or https://restaurant.com">
                     </div>
                     
                     <div class="form-group">
@@ -545,6 +823,36 @@
                             <option value="Ashley">Ashley</option>
                             <option value="Luke">Luke</option>
                         </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mealTypes">Meal Types</label>
+                        <div class="meal-types-grid">
+                            <div class="meal-type-checkbox" data-meal="breakfast">
+                                <input type="checkbox" id="breakfast" value="breakfast">
+                                <label for="breakfast">🌅 Breakfast</label>
+                            </div>
+                            <div class="meal-type-checkbox" data-meal="brunch">
+                                <input type="checkbox" id="brunch" value="brunch">
+                                <label for="brunch">🥞 Brunch</label>
+                            </div>
+                            <div class="meal-type-checkbox" data-meal="lunch">
+                                <input type="checkbox" id="lunch" value="lunch">
+                                <label for="lunch">🥗 Lunch</label>
+                            </div>
+                            <div class="meal-type-checkbox" data-meal="dinner">
+                                <input type="checkbox" id="dinner" value="dinner">
+                                <label for="dinner">🍽️ Dinner</label>
+                            </div>
+                            <div class="meal-type-checkbox" data-meal="bar">
+                                <input type="checkbox" id="bar" value="bar">
+                                <label for="bar">🍻 Bar</label>
+                            </div>
+                            <div class="meal-type-checkbox" data-meal="late-night">
+                                <input type="checkbox" id="late-night" value="late-night">
+                                <label for="late-night">🌙 Late Night</label>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="form-group">
@@ -579,12 +887,20 @@
                     <div class="filter-btn" data-filter="low">Low Priority</div>
                     <div class="filter-btn" data-filter="ashley">Ashley's Picks</div>
                     <div class="filter-btn" data-filter="luke">Luke's Picks</div>
+                    <div class="filter-btn" data-filter="breakfast">🌅 Breakfast</div>
+                    <div class="filter-btn" data-filter="brunch">🥞 Brunch</div>
+                    <div class="filter-btn" data-filter="lunch">🥗 Lunch</div>
+                    <div class="filter-btn" data-filter="dinner">🍽️ Dinner</div>
+                    <div class="filter-btn" data-filter="bar">🍻 Bar</div>
+                    <div class="filter-btn" data-filter="late-night">🌙 Late Night</div>
+                    <div class="filter-btn" data-filter="unvisited">📝 To Visit</div>
+                    <button class="clear-filters" id="clearFilters">Clear All</button>
                 </div>
                 
                 <div class="export-import-controls">
-                    <button class="utility-btn" onclick="tracker.exportData()">Export Data</button>
-                    <button class="utility-btn" onclick="document.getElementById('fileInput').click()">Import Data</button>
-                    <input type="file" id="fileInput" accept=".json" onchange="tracker.importData(event)">
+                    <button class="utility-btn" id="exportBtn">Export Data</button>
+                    <button class="utility-btn" id="importBtn">Import Data</button>
+                    <input type="file" id="fileInput" accept=".json">
                 </div>
             </div>
 
@@ -595,91 +911,897 @@
                 </div>
             </div>
         </div>
+
+        <div class="archive-section">
+            <div class="archive-header">
+                <div class="archive-title">
+                    ✅ <span>Visited Restaurants</span>
+                </div>
+                <button class="archive-toggle" id="archiveToggle" onclick="app.toggleArchive()">
+                    Show Visited (<span id="visitedCount">0</span>)
+                </button>
+            </div>
+            
+            <div class="restaurants-grid hidden" id="archiveGrid">
+                <div class="empty-state">
+                    <h3>No visited restaurants yet!</h3>
+                    <p>Mark restaurants as visited to see them here with your ratings.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
+        // Global app variable
+        let app = null;
+
         class RestaurantTracker {
             constructor() {
                 this.restaurants = [];
                 this.currentFilter = 'all';
+                this.activeFilters = new Set();
                 this.editingId = null;
                 this.draggedElement = null;
                 this.apiUrl = './api.php';
                 this.isOnline = true;
+                this.archiveVisible = false;
+                
+                console.log('A + L Eats v2.3 initialized');
                 this.initializeEventListeners();
                 this.loadData();
                 this.startSyncCheck();
             }
 
             initializeEventListeners() {
+                console.log('Setting up event listeners...');
+                
                 // Form submission
-                document.getElementById('restaurantForm').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    if (this.editingId) {
-                        this.updateRestaurant();
-                    } else {
-                        this.addRestaurant();
-                    }
-                });
+                const form = document.getElementById('restaurantForm');
+                if (form) {
+                    form.addEventListener('submit', (e) => {
+                        console.log('Form submitted');
+                        e.preventDefault();
+                        if (this.editingId) {
+                            this.updateRestaurant();
+                        } else {
+                            this.addRestaurant();
+                        }
+                    });
+                    console.log('Form listener added');
+                }
 
                 // Cancel edit button
-                document.getElementById('cancelBtn').addEventListener('click', () => {
-                    this.cancelEdit();
-                });
+                const cancelBtn = document.getElementById('cancelBtn');
+                if (cancelBtn) {
+                    cancelBtn.addEventListener('click', () => {
+                        this.cancelEdit();
+                    });
+                }
 
                 // Priority selector
                 document.querySelectorAll('.priority-option').forEach(option => {
-                    option.addEventListener('click', () => {
+                    option.addEventListener('click', (e) => {
+                        console.log('Priority clicked:', e.target.dataset.priority);
                         document.querySelectorAll('.priority-option').forEach(o => o.classList.remove('selected'));
                         option.classList.add('selected');
                         document.getElementById('priority').value = option.dataset.priority;
                     });
-                    
-                    card.addEventListener('dragend', () => {
-                        card.classList.remove('dragging');
-                        this.draggedElement = null;
-                    });
-                    
-                    card.addEventListener('dragover', (e) => {
-                        e.preventDefault();
-                        e.dataTransfer.dropEffect = 'move';
-                    });
-                    
-                    card.addEventListener('drop', (e) => {
-                        e.preventDefault();
-                        if (this.draggedElement && this.draggedElement !== card) {
-                            const draggedId = parseInt(this.draggedElement.dataset.id);
-                            const targetId = parseInt(card.dataset.id);
-                            const rect = card.getBoundingClientRect();
-                            const midpoint = rect.top + rect.height / 2;
-                            const position = e.clientY < midpoint ? 'before' : 'after';
+                });
+
+                // Filter buttons with multi-select capability
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const filter = btn.dataset.filter;
+                        
+                        if (filter === 'all') {
+                            // Clear all filters and show all
+                            this.activeFilters.clear();
+                            this.currentFilter = 'all';
+                            document.querySelectorAll('.filter-btn').forEach(b => {
+                                b.classList.remove('active', 'multi-selected');
+                            });
+                            btn.classList.add('active');
+                        } else {
+                            // Multi-select logic
+                            document.querySelector('[data-filter="all"]').classList.remove('active');
                             
-                            this.moveRestaurant(draggedId, targetId, position);
+                            if (this.activeFilters.has(filter)) {
+                                // Remove filter
+                                this.activeFilters.delete(filter);
+                                btn.classList.remove('multi-selected');
+                            } else {
+                                // Add filter
+                                this.activeFilters.add(filter);
+                                btn.classList.add('multi-selected');
+                            }
+                            
+                            // If no filters selected, show all
+                            if (this.activeFilters.size === 0) {
+                                this.currentFilter = 'all';
+                                document.querySelector('[data-filter="all"]').classList.add('active');
+                            } else {
+                                this.currentFilter = 'multi';
+                            }
                         }
+                        
+                        this.renderRestaurants();
+                    });
+                });
+
+                // Clear filters button
+                const clearBtn = document.getElementById('clearFilters');
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', () => {
+                        this.activeFilters.clear();
+                        this.currentFilter = 'all';
+                        document.querySelectorAll('.filter-btn').forEach(b => {
+                            b.classList.remove('active', 'multi-selected');
+                        });
+                        document.querySelector('[data-filter="all"]').classList.add('active');
+                        this.renderRestaurants();
+                    });
+                }
+
+                // Meal type checkboxes
+                document.querySelectorAll('.meal-type-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('click', () => {
+                        const input = checkbox.querySelector('input[type="checkbox"]');
+                        input.checked = !input.checked;
+                        checkbox.classList.toggle('selected', input.checked);
+                    });
+                });
+
+                // Export button
+                const exportBtn = document.getElementById('exportBtn');
+                if (exportBtn) {
+                    exportBtn.addEventListener('click', () => {
+                        this.exportData();
+                    });
+                    console.log('Export button listener added');
+                }
+
+                // Import button
+                const importBtn = document.getElementById('importBtn');
+                if (importBtn) {
+                    importBtn.addEventListener('click', () => {
+                        document.getElementById('fileInput').click();
+                    });
+                }
+
+                // File input
+                const fileInput = document.getElementById('fileInput');
+                if (fileInput) {
+                    fileInput.addEventListener('change', (e) => {
+                        this.importData(e);
+                    });
+                }
+
+                console.log('All event listeners set up');
+            }
+
+            showStatus(message, type = 'success') {
+                const statusDiv = document.getElementById('statusMessage');
+                if (statusDiv) {
+                    statusDiv.className = `status-message status-${type}`;
+                    statusDiv.textContent = message;
+                    setTimeout(() => {
+                        statusDiv.className = '';
+                        statusDiv.textContent = '';
+                    }, 3000);
+                }
+            }
+
+            updateSyncStatus(status, message) {
+                const statusEl = document.getElementById('syncStatus');
+                if (statusEl) {
+                    statusEl.className = `sync-status ${status}`;
+                    
+                    const icons = {
+                        online: '🟢',
+                        offline: '🔴',
+                        syncing: '🟡'
+                    };
+                    
+                    statusEl.innerHTML = `${icons[status]} <span>${message}</span>`;
+                }
+            }
+
+            startSyncCheck() {
+                setInterval(() => {
+                    this.checkServerConnection();
+                }, 30000);
+            }
+
+            async checkServerConnection() {
+                try {
+                    const response = await fetch(this.apiUrl + '?t=' + Date.now(), {
+                        method: 'GET',
+                        headers: { 'Cache-Control': 'no-cache' }
+                    });
+                    
+                    if (response.ok) {
+                        if (!this.isOnline) {
+                            this.isOnline = true;
+                            this.updateSyncStatus('online', 'Connected - Data syncs across all devices');
+                            this.loadData();
+                        }
+                    } else {
+                        throw new Error('Server not responding');
+                    }
+                } catch (error) {
+                    if (this.isOnline) {
+                        this.isOnline = false;
+                        this.updateSyncStatus('offline', 'Server offline - Cannot access data');
+                    }
+                }
+            }
+
+            async loadData() {
+                this.updateSyncStatus('syncing', 'Loading data...');
+                
+                try {
+                    const response = await fetch(this.apiUrl + '?t=' + Date.now(), {
+                        method: 'GET',
+                        headers: { 'Cache-Control': 'no-cache' }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.restaurants = data.restaurants || [];
+                        
+                        // Backward compatibility: convert old mealType to mealTypes array
+                        this.restaurants.forEach(restaurant => {
+                            if (restaurant.mealType && !restaurant.mealTypes) {
+                                restaurant.mealTypes = [restaurant.mealType];
+                            }
+                            if (!restaurant.mealTypes) {
+                                restaurant.mealTypes = [];
+                            }
+                            if (!restaurant.visits) {
+                                restaurant.visits = [];
+                            }
+                        });
+                        
+                        this.isOnline = true;
+                        this.updateSyncStatus('online', `Loaded ${this.restaurants.length} restaurants from server`);
+                        this.updateVisitedCount();
+                    } else {
+                        throw new Error('Server error');
+                    }
+                } catch (error) {
+                    console.error('Load error:', error);
+                    this.isOnline = false;
+                    this.restaurants = [];
+                    this.updateSyncStatus('offline', 'Cannot connect to server - No data available');
+                    this.showStatus('Server connection required to access data', 'error');
+                }
+                
+                this.renderRestaurants();
+            }
+
+            async saveData() {
+                if (!this.isOnline) {
+                    this.showStatus('Cannot save - Server connection required', 'error');
+                    return false;
+                }
+
+                this.updateSyncStatus('syncing', 'Saving to server...');
+                
+                try {
+                    const response = await fetch(this.apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            restaurants: this.restaurants,
+                            lastUpdated: new Date().toISOString()
+                        })
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        this.updateSyncStatus('online', `${result.count} restaurants saved on server`);
+                        this.showStatus('Data saved to server - Available on all devices');
+                        return true;
+                    } else {
+                        throw new Error('Server save failed');
+                    }
+                } catch (error) {
+                    console.error('Save error:', error);
+                    this.isOnline = false;
+                    this.updateSyncStatus('offline', 'Save failed - Server connection lost');
+                    this.showStatus('Cannot save - Server connection required', 'error');
+                    return false;
+                }
+            }
+
+            // URL normalization helper
+            normalizeUrl(url) {
+                if (!url) return '';
+                
+                url = url.trim();
+                
+                // If it already has a protocol, return as-is
+                if (url.match(/^https?:\/\//i)) {
+                    return url;
+                }
+                
+                // If it looks like a domain (contains a dot), add https://
+                if (url.includes('.')) {
+                    return 'https://' + url;
+                }
+                
+                return url;
+            }
+
+            // URL validation helper
+            validateUrl(url) {
+                if (!url) return true; // Empty URL is okay
+                
+                // Simple validation - accept various formats
+                const simpleUrlPattern = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}|^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}|^https?:\/\/.+/i;
+                return simpleUrlPattern.test(url);
+            }
+
+            addRestaurant() {
+                console.log('Adding restaurant...');
+                
+                const name = document.getElementById('name').value.trim();
+                const cuisine = document.getElementById('cuisine').value.trim();
+                const location = document.getElementById('location').value.trim();
+                const url = document.getElementById('url').value.trim();
+                const suggestedBy = document.getElementById('suggestedBy').value;
+                const mealType = document.getElementById('mealType').value;
+                const priority = document.getElementById('priority').value;
+                const notes = document.getElementById('notes').value.trim();
+
+                if (!name) {
+                    this.showStatus('Restaurant name is required', 'error');
+                    return;
+                }
+
+                if (!suggestedBy) {
+                    this.showStatus('Please select who suggested this restaurant', 'error');
+                    return;
+                }
+
+                if (!mealType) {
+                    this.showStatus('Please select a meal type', 'error');
+                    return;
+                }
+
+                // Validate and normalize URL
+                if (url && !this.validateUrl(url)) {
+                    this.showStatus('Please enter a valid website (e.g., restaurant.com or https://restaurant.com)', 'error');
+                    return;
+                }
+
+                const normalizedUrl = this.normalizeUrl(url);
+
+                const restaurant = {
+                    id: Date.now(),
+                    name: name,
+                    cuisine: cuisine,
+                    location: location,
+                    url: normalizedUrl,
+                    suggestedBy: suggestedBy,
+                    mealTypes: selectedMealTypes,
+                    priority: priority,
+                    notes: notes,
+                    dateAdded: new Date().toLocaleDateString(),
+                    visited: false,
+                    visits: [],
+                    order: this.restaurants.length
+                };
+
+                console.log('New restaurant:', restaurant);
+
+                this.restaurants.push(restaurant);
+                this.saveData();
+                this.renderRestaurants();
+                this.resetForm();
+                this.showStatus('Restaurant added and synced to all devices');
+            }
+
+            editRestaurant(id) {
+                const restaurant = this.restaurants.find(r => r.id === id);
+                if (!restaurant) return;
+
+                this.editingId = id;
+                
+                document.getElementById('name').value = restaurant.name || '';
+                document.getElementById('cuisine').value = restaurant.cuisine || '';
+                document.getElementById('location').value = restaurant.location || '';
+                document.getElementById('url').value = restaurant.url || '';
+                document.getElementById('suggestedBy').value = restaurant.suggestedBy || '';
+                document.getElementById('notes').value = restaurant.notes || '';
+                
+                // Set meal type checkboxes
+                const restaurantMealTypes = restaurant.mealTypes || (restaurant.mealType ? [restaurant.mealType] : []);
+                document.querySelectorAll('.meal-type-checkbox input[type="checkbox"]').forEach(input => {
+                    const isSelected = restaurantMealTypes.includes(input.value);
+                    input.checked = isSelected;
+                    input.closest('.meal-type-checkbox').classList.toggle('selected', isSelected);
+                });
+                
+                document.querySelectorAll('.priority-option').forEach(o => o.classList.remove('selected'));
+                const priorityOption = document.querySelector(`[data-priority="${restaurant.priority}"]`);
+                if (priorityOption) {
+                    priorityOption.classList.add('selected');
+                }
+                document.getElementById('priority').value = restaurant.priority;
+                
+                document.getElementById('submitBtn').textContent = 'Update Restaurant';
+                document.getElementById('cancelBtn').classList.remove('hidden');
+                
+                document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+            }
+
+            updateRestaurant() {
+                const restaurant = this.restaurants.find(r => r.id === this.editingId);
+                if (!restaurant) return;
+
+                const name = document.getElementById('name').value.trim();
+                const url = document.getElementById('url').value.trim();
+                
+                if (!name) {
+                    this.showStatus('Restaurant name is required', 'error');
+                    return;
+                }
+
+                // Validate and normalize URL
+                if (url && !this.validateUrl(url)) {
+                    this.showStatus('Please enter a valid website (e.g., restaurant.com or https://restaurant.com)', 'error');
+                    return;
+                }
+
+                const normalizedUrl = this.normalizeUrl(url);
+
+                // Get selected meal types for update
+                const selectedMealTypes = [];
+                document.querySelectorAll('.meal-type-checkbox input[type="checkbox"]:checked').forEach(input => {
+                    selectedMealTypes.push(input.value);
+                });
+
+                restaurant.name = name;
+                restaurant.cuisine = document.getElementById('cuisine').value.trim();
+                restaurant.location = document.getElementById('location').value.trim();
+                restaurant.url = normalizedUrl;
+                restaurant.suggestedBy = document.getElementById('suggestedBy').value;
+                restaurant.mealTypes = selectedMealTypes;
+                restaurant.priority = document.getElementById('priority').value;
+                restaurant.notes = document.getElementById('notes').value.trim();
+                restaurant.lastModified = new Date().toLocaleDateString();
+
+                this.saveData();
+                this.renderRestaurants();
+                this.cancelEdit();
+                this.showStatus('Restaurant updated and synced to all devices');
+            }
+
+            cancelEdit() {
+                this.editingId = null;
+                this.resetForm();
+                document.getElementById('submitBtn').textContent = 'Add Restaurant';
+                document.getElementById('cancelBtn').classList.add('hidden');
+            }
+
+            resetForm() {
+                const form = document.getElementById('restaurantForm');
+                if (form) {
+                    form.reset();
+                }
+                
+                // Reset meal type checkboxes
+                document.querySelectorAll('.meal-type-checkbox').forEach(checkbox => {
+                    const input = checkbox.querySelector('input[type="checkbox"]');
+                    input.checked = false;
+                    checkbox.classList.remove('selected');
+                });
+                
+                document.querySelectorAll('.priority-option').forEach(o => o.classList.remove('selected'));
+                const mediumOption = document.querySelector('.priority-option[data-priority="medium"]');
+                if (mediumOption) {
+                    mediumOption.classList.add('selected');
+                }
+                document.getElementById('priority').value = 'medium';
+            }
+
+            markAsVisited(id) {
+                const restaurant = this.restaurants.find(r => r.id === id);
+                if (!restaurant) return;
+
+                // Create a modal for rating input
+                this.showRatingModal(restaurant, false); // false = new visit
+            }
+
+            showRatingModal(restaurant, isEdit = false, visitIndex = null) {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                    background: rgba(0,0,0,0.5); z-index: 1000; display: flex;
+                    align-items: center; justify-content: center;
+                `;
+                
+                const visitCount = restaurant.visits ? restaurant.visits.length : 0;
+                const isNewVisit = !isEdit;
+                const modalTitle = isNewVisit ? 
+                    (visitCount === 0 ? `Rate ${restaurant.name}` : `Rate Visit #${visitCount + 1} to ${restaurant.name}`) :
+                    `Edit Visit #${visitIndex + 1} to ${restaurant.name}`;
+                
+                modal.innerHTML = `
+                    <div style="background: white; padding: 30px; border-radius: 20px; max-width: 500px; width: 90%;">
+                        <h3 style="margin-bottom: 20px; text-align: center;">${modalTitle}</h3>
+                        
+                        ${visitCount > 0 ? `<p style="text-align: center; color: #666; margin-bottom: 15px;">Previous visits: ${visitCount}</p>` : ''}
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Visit Date:</label>
+                            <input type="date" id="visitDate" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px;" value="${new Date().toISOString().split('T')[0]}">
+                        </div>
+                        
+                        <div class="rating-input">
+                            <label>Ashley's Rating:</label>
+                            <div class="star-input" id="ashleyStars">
+                                ${[1,2,3,4,5].map(i => `<button type="button" data-rating="${i}">⭐</button>`).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="rating-input">
+                            <label>Luke's Rating:</label>
+                            <div class="star-input" id="lukeStars">
+                                ${[1,2,3,4,5].map(i => `<button type="button" data-rating="${i}">⭐</button>`).join('')}
+                            </div>
+                        </div>
+                        
+                        <div style="margin: 15px 0;">
+                            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Visit Notes:</label>
+                            <textarea id="visitNotes" placeholder="How was this visit? What did you order?" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px; min-height: 60px; resize: vertical;"></textarea>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 25px; margin-right: 10px; cursor: pointer;" onclick="app.saveVisit(${restaurant.id}, ${isEdit}, ${visitIndex})">
+                                ${isNewVisit ? 'Add Visit' : 'Update Visit'}
+                            </button>
+                            <button style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer;" onclick="app.closeRatingModal()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                document.body.appendChild(modal);
+                this.currentModal = modal;
+                this.currentRatingRestaurant = restaurant;
+
+                // Setup star rating interactions
+                this.setupStarRating('ashleyStars');
+                this.setupStarRating('lukeStars');
+                
+                // If editing, pre-fill the data
+                if (isEdit && restaurant.visits && restaurant.visits[visitIndex]) {
+                    const visit = restaurant.visits[visitIndex];
+                    document.getElementById('visitDate').value = visit.date;
+                    document.getElementById('visitNotes').value = visit.notes || '';
+                    
+                    setTimeout(() => {
+                        this.setStarRating('ashleyStars', visit.ashleyRating);
+                        this.setStarRating('lukeStars', visit.lukeRating);
+                    }, 100);
+                }
+            }
+
+            setStarRating(containerId, rating) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                
+                container.dataset.rating = rating;
+                const stars = container.querySelectorAll('button');
+                stars.forEach((s, i) => {
+                    s.classList.toggle('active', i < rating);
+                });
+            }
+
+            setupStarRating(containerId) {
+                const container = document.getElementById(containerId);
+                const stars = container.querySelectorAll('button');
+                
+                stars.forEach((star, index) => {
+                    star.addEventListener('click', () => {
+                        const rating = parseInt(star.dataset.rating);
+                        container.dataset.rating = rating;
+                        
+                        // Update star display
+                        stars.forEach((s, i) => {
+                            s.classList.toggle('active', i < rating);
+                        });
                     });
                 });
             }
 
-            exportData() {
-                const data = {
-                    restaurants: this.restaurants,
-                    exportDate: new Date().toISOString(),
-                    version: '2.0',
-                    deviceInfo: {
-                        userAgent: navigator.userAgent,
-                        timestamp: Date.now()
-                    }
+            saveVisit(id, isEdit = false, visitIndex = null) {
+                const restaurant = this.restaurants.find(r => r.id === id);
+                if (!restaurant) return;
+
+                const ashleyRating = parseInt(document.getElementById('ashleyStars').dataset.rating || '0');
+                const lukeRating = parseInt(document.getElementById('lukeStars').dataset.rating || '0');
+                const visitDate = document.getElementById('visitDate').value;
+                const visitNotes = document.getElementById('visitNotes').value.trim();
+
+                if (!visitDate) {
+                    alert('Please select a visit date');
+                    return;
+                }
+
+                const visitData = {
+                    date: visitDate,
+                    ashleyRating: ashleyRating,
+                    lukeRating: lukeRating,
+                    notes: visitNotes,
+                    timestamp: new Date().toISOString()
                 };
+
+                // Initialize visits array if it doesn't exist
+                if (!restaurant.visits) {
+                    restaurant.visits = [];
+                }
+
+                if (isEdit && visitIndex !== null) {
+                    // Update existing visit
+                    restaurant.visits[visitIndex] = visitData;
+                } else {
+                    // Add new visit
+                    restaurant.visits.push(visitData);
+                    restaurant.visits.sort((a, b) => new Date(b.date) - new Date(a.date)); // Most recent first
+                }
+
+                // Update restaurant status
+                restaurant.visited = restaurant.visits.length > 0;
+                if (restaurant.visited) {
+                    // Set overall ratings to latest visit for backward compatibility
+                    const latestVisit = restaurant.visits[0];
+                    restaurant.ashleyRating = latestVisit.ashleyRating;
+                    restaurant.lukeRating = latestVisit.lukeRating;
+                    restaurant.visitedDate = latestVisit.date;
+                }
+
+                this.closeRatingModal();
+                this.saveData();
+                this.renderRestaurants();
+                this.renderArchive();
+                this.updateVisitedCount();
                 
-                const dataStr = JSON.stringify(data, null, 2);
-                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const message = isEdit ? 'Visit updated successfully!' : 
+                               restaurant.visits.length === 1 ? 'Restaurant marked as visited!' : 
+                               `Visit #${restaurant.visits.length} added!`;
+                this.showStatus(message);
+            }
+
+            closeRatingModal() {
+                if (this.currentModal) {
+                    document.body.removeChild(this.currentModal);
+                    this.currentModal = null;
+                    this.currentRatingRestaurant = null;
+                }
+            }
+
+            toggleArchive() {
+                this.archiveVisible = !this.archiveVisible;
+                const archiveGrid = document.getElementById('archiveGrid');
+                const toggleBtn = document.getElementById('archiveToggle');
                 
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(dataBlob);
-                link.download = `al-eats-backup-${new Date().toISOString().split('T')[0]}.json`;
-                link.click();
+                if (this.archiveVisible) {
+                    archiveGrid.classList.remove('hidden');
+                    toggleBtn.textContent = `Hide Visited (${this.getVisitedRestaurants().length})`;
+                    this.renderArchive();
+                } else {
+                    archiveGrid.classList.add('hidden');
+                    toggleBtn.innerHTML = `Show Visited (<span id="visitedCount">${this.getVisitedRestaurants().length}</span>)`;
+                }
+            }
+
+            getVisitedRestaurants() {
+                return this.restaurants.filter(r => r.visited);
+            }
+
+            updateVisitedCount() {
+                const countEl = document.getElementById('visitedCount');
+                if (countEl) {
+                    countEl.textContent = this.getVisitedRestaurants().length;
+                }
+            }
+
+            renderArchive() {
+                const grid = document.getElementById('archiveGrid');
+                if (!grid) return;
                 
-                this.showStatus(`Exported ${this.restaurants.length} restaurants`);
+                const visitedRestaurants = this.getVisitedRestaurants();
+
+                if (visitedRestaurants.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <h3>No visited restaurants yet!</h3>
+                            <p>Mark restaurants as visited to see them here with your ratings.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                grid.innerHTML = visitedRestaurants.map(restaurant => {
+                    const visits = restaurant.visits || [];
+                    const visitCount = visits.length;
+                    
+                    return `
+                    <div class="restaurant-card visited-card priority-${restaurant.priority}" data-id="${restaurant.id}">
+                        <div class="restaurant-header">
+                            <div>
+                                <div class="restaurant-name">
+                                    ${restaurant.name}
+                                    ${visitCount > 1 ? `<span class="visit-count-badge">${visitCount} visits</span>` : ''}
+                                </div>
+                                <div class="restaurant-cuisine">${restaurant.cuisine || 'Cuisine not specified'}</div>
+                            </div>
+                            <div>
+                                <div class="suggested-by-badge ${restaurant.suggestedBy.toLowerCase()}">
+                                    ${restaurant.suggestedBy === 'Ashley' ? '👩' : '👨'} ${restaurant.suggestedBy}
+                                </div>
+                                <div class="multiple-meal-badges">
+                                    ${(() => {
+                                        const mealTypes = restaurant.mealTypes || (restaurant.mealType ? [restaurant.mealType] : []);
+                                        return mealTypes.map(mealType => `
+                                            <div class="meal-type-badge ${mealType}">
+                                                ${mealType === 'breakfast' ? '🌅' : 
+                                                  mealType === 'brunch' ? '🥞' :
+                                                  mealType === 'lunch' ? '🥗' :
+                                                  mealType === 'dinner' ? '🍽️' :
+                                                  mealType === 'bar' ? '🍻' :
+                                                  mealType === 'late-night' ? '🌙' : '🍽️'} 
+                                                ${mealType}
+                                            </div>
+                                        `).join('');
+                                    })()}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="restaurant-details">
+                            ${restaurant.location ? `<div class="restaurant-location">📍 ${restaurant.location}</div>` : ''}
+                            ${restaurant.url ? `<div class="restaurant-location">🔗 <a href="${restaurant.url}" target="_blank" style="color: #667eea; text-decoration: none;">Visit Website</a></div>` : ''}
+                            
+                            ${visits.length > 0 ? `
+                                <div class="visit-history">
+                                    <strong>Visit History:</strong>
+                                    ${visits.map((visit, index) => `
+                                        <div class="visit-entry">
+                                            <div>
+                                                <div class="visit-date">${new Date(visit.date).toLocaleDateString()}</div>
+                                                ${visit.notes ? `<div style="font-size: 0.9rem; color: #666;">${visit.notes}</div>` : ''}
+                                            </div>
+                                            <div class="visit-ratings">
+                                                ${visit.ashleyRating > 0 ? `
+                                                    <div class="rating-badge ashley-rating">
+                                                        👩 ${'⭐'.repeat(visit.ashleyRating)}
+                                                    </div>
+                                                ` : ''}
+                                                ${visit.lukeRating > 0 ? `
+                                                    <div class="rating-badge luke-rating">
+                                                        👨 ${'⭐'.repeat(visit.lukeRating)}
+                                                    </div>
+                                                ` : ''}
+                                                <button class="action-btn edit-btn" onclick="app.editVisit(${restaurant.id}, ${index})" style="padding: 4px 8px; font-size: 0.8rem;">Edit</button>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                            
+                            ${restaurant.notes ? `<div class="restaurant-notes">${restaurant.notes}</div>` : ''}
+                        </div>
+                        
+                        <div class="restaurant-actions">
+                            <button class="action-btn visit-btn" onclick="app.markAsVisited(${restaurant.id})">Add Another Visit</button>
+                            ${restaurant.location ? `<button class="action-btn map-btn" onclick="app.openMap(${restaurant.id})">View on Map</button>` : ''}
+                            <button class="action-btn edit-btn" onclick="app.editRestaurant(${restaurant.id})">Edit Restaurant</button>
+                            <button class="action-btn unvisit-btn" onclick="app.unvisitRestaurant(${restaurant.id})">Un-visit</button>
+                            <button class="action-btn delete-btn" onclick="app.deleteRestaurant(${restaurant.id})">Delete</button>
+                        </div>
+                    </div>
+                `}).join('');
+            }
+
+            editVisit(restaurantId, visitIndex) {
+                const restaurant = this.restaurants.find(r => r.id === restaurantId);
+                if (!restaurant || !restaurant.visits || !restaurant.visits[visitIndex]) return;
+                
+                this.showRatingModal(restaurant, true, visitIndex);
+            }
+
+            unvisitRestaurant(id) {
+                const restaurant = this.restaurants.find(r => r.id === id);
+                if (!restaurant) return;
+
+                if (confirm(`Are you sure you want to un-visit "${restaurant.name}"? This will move it back to your "to visit" list and clear all visit history.`)) {
+                    // Reset visit status
+                    restaurant.visited = false;
+                    restaurant.visits = [];
+                    restaurant.visitedDate = null;
+                    restaurant.ashleyRating = 0;
+                    restaurant.lukeRating = 0;
+
+                    this.saveData();
+                    this.renderRestaurants();
+                    this.renderArchive();
+                    this.updateVisitedCount();
+                    this.showStatus(`${restaurant.name} moved back to "to visit" list`);
+                }
+            }
+
+            openMap(id) {
+                const restaurant = this.restaurants.find(r => r.id === id);
+                if (!restaurant || !restaurant.location) {
+                    alert('No location available for this restaurant');
+                    return;
+                }
+
+                const query = encodeURIComponent(`${restaurant.name} ${restaurant.location}`);
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+                
+                let mapUrl;
+                
+                if (isIOS) {
+                    mapUrl = `maps://maps.apple.com/?q=${query}`;
+                    setTimeout(() => {
+                        window.open(`https://maps.google.com/maps?q=${query}`, '_blank');
+                    }, 500);
+                } else if (isMac) {
+                    mapUrl = `maps://maps.apple.com/?q=${query}`;
+                    setTimeout(() => {
+                        window.open(`https://maps.google.com/maps?q=${query}`, '_blank');
+                    }, 500);
+                } else {
+                    mapUrl = `https://maps.google.com/maps?q=${query}`;
+                }
+
+                try {
+                    if (isIOS || isMac) {
+                        window.location.href = mapUrl;
+                    } else {
+                        window.open(mapUrl, '_blank');
+                    }
+                } catch (e) {
+                    window.open(`https://maps.google.com/maps?q=${query}`, '_blank');
+                }
+            }
+
+            exportData() {
+                console.log('Exporting data...');
+                try {
+                    const data = {
+                        restaurants: this.restaurants,
+                        exportDate: new Date().toISOString(),
+                        version: '2.3',
+                        deviceInfo: {
+                            userAgent: navigator.userAgent,
+                            timestamp: Date.now()
+                        }
+                    };
+                    
+                    const dataStr = JSON.stringify(data, null, 2);
+                    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                    
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(dataBlob);
+                    link.download = `a-l-eats-backup-${new Date().toISOString().split('T')[0]}.json`;
+                    link.click();
+                    
+                    this.showStatus(`Exported ${this.restaurants.length} restaurants`);
+                    console.log('Export completed');
+                } catch (error) {
+                    console.error('Export error:', error);
+                    this.showStatus('Export failed', 'error');
+                }
             }
 
             importData(event) {
@@ -694,7 +1816,6 @@
                             const importCount = data.restaurants.length;
                             if (confirm(`Import ${importCount} restaurants? This will replace all current data.`)) {
                                 this.restaurants = data.restaurants;
-                                // Update order values
                                 this.restaurants.forEach((restaurant, index) => {
                                     restaurant.order = index;
                                 });
@@ -715,20 +1836,67 @@
             }
 
             getFilteredRestaurants() {
+                let filtered = this.restaurants;
+                
+                // Always exclude visited restaurants from main view
+                filtered = this.restaurants.filter(r => !r.visited);
+                
                 if (this.currentFilter === 'all') {
-                    return this.restaurants;
+                    return filtered;
                 }
+                
+                if (this.currentFilter === 'multi') {
+                    // Multi-filter logic
+                    return filtered.filter(restaurant => {
+                        return Array.from(this.activeFilters).every(filter => {
+                            if (filter === 'ashley') {
+                                return restaurant.suggestedBy === 'Ashley';
+                            }
+                            if (filter === 'luke') {
+                                return restaurant.suggestedBy === 'Luke';
+                            }
+                            if (filter === 'unvisited') {
+                                return !restaurant.visited;
+                            }
+                            if (['breakfast', 'brunch', 'lunch', 'dinner', 'bar', 'late-night'].includes(filter)) {
+                                const mealTypes = restaurant.mealTypes || (restaurant.mealType ? [restaurant.mealType] : []);
+                                return mealTypes.includes(filter);
+                            }
+                            if (['high', 'medium', 'low'].includes(filter)) {
+                                return restaurant.priority === filter;
+                            }
+                            return true;
+                        });
+                    });
+                }
+                
+                // Single filter logic (backward compatibility)
                 if (this.currentFilter === 'ashley') {
-                    return this.restaurants.filter(r => r.suggestedBy === 'Ashley');
+                    return filtered.filter(r => r.suggestedBy === 'Ashley');
                 }
                 if (this.currentFilter === 'luke') {
-                    return this.restaurants.filter(r => r.suggestedBy === 'Luke');
+                    return filtered.filter(r => r.suggestedBy === 'Luke');
                 }
-                return this.restaurants.filter(r => r.priority === this.currentFilter);
+                if (this.currentFilter === 'unvisited') {
+                    return filtered;
+                }
+                if (['breakfast', 'brunch', 'lunch', 'dinner', 'bar', 'late-night'].includes(this.currentFilter)) {
+                    return filtered.filter(r => {
+                        const mealTypes = r.mealTypes || (r.mealType ? [r.mealType] : []);
+                        return mealTypes.includes(this.currentFilter);
+                    });
+                }
+                if (['high', 'medium', 'low'].includes(this.currentFilter)) {
+                    return filtered.filter(r => r.priority === this.currentFilter);
+                }
+                
+                return filtered;
             }
 
             renderRestaurants() {
                 const grid = document.getElementById('restaurantsGrid');
+                if (!grid) return;
+                
                 const filteredRestaurants = this.getFilteredRestaurants();
 
                 if (filteredRestaurants.length === 0) {
@@ -741,7 +1909,18 @@
                     } else if (this.currentFilter === 'luke') {
                         emptyMessage = "No restaurants from Luke yet!";
                         emptySubtext = "Luke hasn't suggested any restaurants yet.";
-                    } else if (this.currentFilter !== 'all') {
+                    } else if (['breakfast', 'brunch', 'lunch', 'dinner', 'bar', 'late-night'].includes(this.currentFilter)) {
+                        const mealEmojis = {
+                            'breakfast': '🌅',
+                            'brunch': '🥞', 
+                            'lunch': '🥗',
+                            'dinner': '🍽️',
+                            'bar': '🍻',
+                            'late-night': '🌙'
+                        };
+                        emptyMessage = `No ${this.currentFilter} places yet!`;
+                        emptySubtext = `Add some ${mealEmojis[this.currentFilter]} ${this.currentFilter} spots to your list.`;
+                    } else if (['high', 'medium', 'low'].includes(this.currentFilter)) {
                         emptyMessage = `No ${this.currentFilter} priority restaurants`;
                         emptySubtext = 'Try a different filter or add more restaurants.';
                     }
@@ -768,6 +1947,22 @@
                                 <div class="suggested-by-badge ${restaurant.suggestedBy.toLowerCase()}">
                                     ${restaurant.suggestedBy === 'Ashley' ? '👩' : '👨'} ${restaurant.suggestedBy}
                                 </div>
+                                <div class="multiple-meal-badges">
+                                    ${(() => {
+                                        const mealTypes = restaurant.mealTypes || (restaurant.mealType ? [restaurant.mealType] : []);
+                                        return mealTypes.map(mealType => `
+                                            <div class="meal-type-badge ${mealType}">
+                                                ${mealType === 'breakfast' ? '🌅' : 
+                                                  mealType === 'brunch' ? '🥞' :
+                                                  mealType === 'lunch' ? '🥗' :
+                                                  mealType === 'dinner' ? '🍽️' :
+                                                  mealType === 'bar' ? '🍻' :
+                                                  mealType === 'late-night' ? '🌙' : '🍽️'} 
+                                                ${mealType}
+                                            </div>
+                                        `).join('');
+                                    })()}
+                                </div>
                             </div>
                         </div>
                         
@@ -780,21 +1975,41 @@
                         </div>
                         
                         <div class="restaurant-actions">
-                            ${!restaurant.visited ? `<button class="action-btn visit-btn" onclick="tracker.markAsVisited(${restaurant.id})">Mark as Visited</button>` : ''}
-                            ${restaurant.location ? `<button class="action-btn map-btn" onclick="tracker.openMap(${restaurant.id})">View on Map</button>` : ''}
-                            <button class="action-btn edit-btn" onclick="tracker.editRestaurant(${restaurant.id})">Edit</button>
-                            <button class="action-btn delete-btn" onclick="tracker.deleteRestaurant(${restaurant.id})">Delete</button>
+                            ${!restaurant.visited ? `<button class="action-btn visit-btn" onclick="app.markAsVisited(${restaurant.id})">Mark as Visited</button>` : ''}
+                            ${restaurant.location ? `<button class="action-btn map-btn" onclick="app.openMap(${restaurant.id})">View on Map</button>` : ''}
+                            <button class="action-btn edit-btn" onclick="app.editRestaurant(${restaurant.id})">Edit</button>
+                            <button class="action-btn delete-btn" onclick="app.deleteRestaurant(${restaurant.id})">Delete</button>
                         </div>
                     </div>
                 `).join('');
-
-                // Setup drag and drop after rendering
-                setTimeout(() => this.setupDragAndDrop(), 100);
             }
         }
 
-        // Initialize the app
-        const tracker = new RestaurantTracker();
+        // Initialize the app when the page loads
+        function initApp() {
+            console.log('Initializing A + L Eats v2.3...');
+            try {
+                app = new RestaurantTracker();
+                console.log('A + L Eats v2.3 initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize A + L Eats:', error);
+            }
+        }
+
+        // Multiple initialization methods to ensure it works
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+
+        // Fallback initialization
+        window.addEventListener('load', function() {
+            if (!app) {
+                console.log('Fallback initialization');
+                initApp();
+            }
+        });
     </script>
 </body>
 </html>
